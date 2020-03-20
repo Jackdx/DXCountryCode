@@ -8,7 +8,11 @@
 国家和地区码选择控制器，支持present或push方式跳转，两三行代码搞定。适配iphone和ipad。如果对默认效果不满意，还支持各种自定义。
 
 ### 效果演示：
-![image](https://github.com/Jackdx/DXCountryCode/raw/master/photo.gif)
+![image](https://github.com/Jackdx/DXCountryCode/raw/master/photo1.png)
+
+![image](https://github.com/Jackdx/DXCountryCode/raw/master/photo2.png)
+
+![image](https://github.com/Jackdx/DXCountryCode/raw/master/photo3.png)
 
 ## Example
 

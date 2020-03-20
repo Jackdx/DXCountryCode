@@ -49,7 +49,7 @@
     countryCodeVC.returnCountryCodeBlock = ^(NSString *countryName, NSString *code) {
         self->showCodeLB.text = code;
     };
-    [self presentViewController:nav animated:YES completion:nil];
+    [self.navigationController presentViewController:nav animated:YES completion:nil];
 }
 
 #pragma mark - XWCountryCodeControllerDelegate
