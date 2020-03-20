@@ -36,6 +36,7 @@
 //    countryCodeVC.deleagete = self;
     countryCodeVC.returnCountryCodeBlock = ^(NSString *countryName, NSString *code) {
         self->showCodeLB.text = code;
+        NSLog(@"countryName:%@, code:%@",countryName,code);
     };
     [self.navigationController pushViewController:countryCodeVC animated:YES];
 
