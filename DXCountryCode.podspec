@@ -21,11 +21,11 @@ Pod::Spec.new do |s|
 TODO: Add long description of the pod here.
                        DESC
 
-  s.homepage         = 'https://gitee.com/jackdengx/DXCountryCode'
+  s.homepage         = 'https://github.com/Jackdx/DXCountryCode'
   # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
-  s.author           = { 'Jackdx' => 'jack.deng@ubtrobot.com' }
-  s.source           = { :git => 'https://gitee.com/jackdengx/DXCountryCode.git', :tag => s.version.to_s }
+  s.author           = { 'Jackdx' => '871077947@qq.com' }
+  s.source           = { :git => 'https://github.com/Jackdx/DXCountryCode.git', :tag => s.version.to_s }
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
   s.ios.deployment_target = '8.0'
