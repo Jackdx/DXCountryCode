@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="b8A-ma-jAw">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15509"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="wQg-tq-qST">
+            <objects>
+                <viewController id="whP-gf-Uak" customClass="DXViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="uEw-UM-LJ8"/>
+                        <viewControllerLayoutGuide type="bottom" id="Mvr-aV-6Um"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="TpU-gO-2f1">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7b4-e1-zFx">
+                                <rect key="frame" x="146" y="318.5" width="83" height="30"/>
+                                <color key="backgroundColor" red="0.99942404029999998" green="0.98555368190000003" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <state key="normal" title="present跳转">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="presentTocountryCode:" destination="whP-gf-Uak" eventType="touchUpInside" id="Prd-0X-W8w"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="所选择的国家代码在此显示" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w6l-sU-vuR">
+                                <rect key="frame" x="65" y="378.5" width="245" height="24"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <color key="textColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EMe-Yi-nwf">
+                                <rect key="frame" x="155" y="258.5" width="65" height="30"/>
+                                <color key="backgroundColor" red="0.99942404029999998" green="0.98555368190000003" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <state key="normal" title="push跳转">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="pushTocountryCode:" destination="whP-gf-Uak" eventType="touchUpInside" id="fUt-cy-xMm"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="7b4-e1-zFx" firstAttribute="centerY" secondItem="TpU-gO-2f1" secondAttribute="centerY" id="0cW-h0-2lb"/>
+                            <constraint firstItem="EMe-Yi-nwf" firstAttribute="centerX" secondItem="TpU-gO-2f1" secondAttribute="centerX" id="OBm-4C-x2o"/>
+                            <constraint firstItem="7b4-e1-zFx" firstAttribute="top" secondItem="EMe-Yi-nwf" secondAttribute="bottom" constant="30" id="Qm3-AB-rYY"/>
+                            <constraint firstItem="w6l-sU-vuR" firstAttribute="centerX" secondItem="TpU-gO-2f1" secondAttribute="centerX" id="bio-Eo-gRk"/>
+                            <constraint firstItem="w6l-sU-vuR" firstAttribute="top" secondItem="7b4-e1-zFx" secondAttribute="bottom" constant="30" id="qZ2-y1-ed5"/>
+                            <constraint firstItem="7b4-e1-zFx" firstAttribute="centerX" secondItem="TpU-gO-2f1" secondAttribute="centerX" id="wmv-55-cqX"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="DRK-4b-xBP"/>
+                    <connections>
+                        <outlet property="showCodeLB" destination="w6l-sU-vuR" id="qpe-Hw-ne6"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="tc2-Qw-aMS" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="618" y="433"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="UG0-6x-vqO">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="b8A-ma-jAw" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="MX3-Dz-xF1">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="whP-gf-Uak" kind="relationship" relationship="rootViewController" id="gZk-80-Z1l"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5FU-fI-Vnf" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-130" y="467"/>
+        </scene>
+    </scenes>
+</document>

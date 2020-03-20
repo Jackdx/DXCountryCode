@@ -1,0 +1,6 @@
+framework module DXCountryCode {
+  umbrella header "DXCountryCode-umbrella.h"
+
+  export *
+  module * { export * }
+}

@@ -1,0 +1,16 @@
+PODS:
+  - DXCountryCode (1.1.0)
+
+DEPENDENCIES:
+  - DXCountryCode (from `../`)
+
+EXTERNAL SOURCES:
+  DXCountryCode:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  DXCountryCode: f8ddbd3e3786e6b424c85249e3598a7d01d25401
+
+PODFILE CHECKSUM: deb3240dcc652d662eaff1c0f5f2eba65b00efbb
+
+COCOAPODS: 1.8.4

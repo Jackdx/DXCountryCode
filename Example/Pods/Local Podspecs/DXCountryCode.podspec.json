@@ -1,0 +1,27 @@
+{
+  "name": "DXCountryCode",
+  "version": "1.1.0",
+  "summary": "DXCountryCode",
+  "description": "TODO: Add long description of the pod here.",
+  "homepage": "https://gitee.com/jackdengx/DXCountryCode",
+  "license": {
+    "type": "MIT",
+    "file": "LICENSE"
+  },
+  "authors": {
+    "Jackdx": "jack.deng@ubtrobot.com"
+  },
+  "source": {
+    "git": "https://gitee.com/jackdengx/DXCountryCode.git",
+    "tag": "1.1.0"
+  },
+  "platforms": {
+    "ios": "8.0"
+  },
+  "source_files": "DXCountryCode/Classes/**/*",
+  "resource_bundles": {
+    "DXCountryCode": [
+      "DXCountryCode/Assets/**/*"
+    ]
+  }
+}
