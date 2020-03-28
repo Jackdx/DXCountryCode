@@ -33,14 +33,7 @@
 @end
 
 @implementation DXCountryCodeController
-- (UIImageView *)selectImagView
-{
-    if (!_selectImagView) {
-        UIImage *image = [UIImage imageWithContentsOfFile:[[self dx_countryCodeBundle] pathForResource:@"icon_row_select@2x" ofType:@"png"]];
-        _selectImagView = [[UIImageView alloc] initWithImage:image];
-    }
-    return _selectImagView;
-}
+
 - (instancetype)init
 {
     return [self initWithCountryCode:nil];
@@ -59,13 +52,48 @@
        }
        return self;
 }
+
+- (void)loadCountryData
+{
+       NSString *plistPathCH = [[self dx_countryCodeBundle] pathForResource:@"sortedNameCH" ofType:@"plist"];
+       _sortedNameDict = [[NSDictionary alloc] initWithContentsOfFile:plistPathCH];
+       _indexArray = [[NSArray alloc] initWithArray:[[_sortedNameDict allKeys] sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+           return [obj1 compare:obj2];
+       }]];
+}
+#pragma mark - system
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    self.view.backgroundColor = [UIColor whiteColor];
+    
+    [self initNavBar];
+    
+    [self loadCountryData]; // 加载数据
+    [self creatSubviews];
+    
+    [self addDXBubbleView];
+    [self initIndexView];
+    
+    [self.sectionIndexView reloadItemViews];
+    
+    // 滚动到指定的section，并显示选定状态
+    [self setupSelectState];
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self refreshIndexView];
+    });
+}
 - (void)refreshIndexView{
     if ( _searchController.isActive && !_isSearchStrEmpty) {
         _sectionIndexView.hidden = YES;
     }else{
         _sectionIndexView.hidden = NO;
         
-        CGSize size = [self sizeIndexItem];
+        CGSize size = CGSizeMake(22, 18.0f);
+        
+        if (kDXIsPad) {
+            size = CGSizeMake(22, 21.0f);
+        }
         
         CGFloat margin = kDXIsPad?-20:0;
         
@@ -74,15 +102,7 @@
         [_sectionIndexView setBackgroundViewFrame];
     }
 }
-- (CGSize)sizeIndexItem
-{
-    CGSize size = CGSizeMake(22, 18.0f);
-    
-    if (kDXIsPad) {
-        size = CGSizeMake(22, 21.0f);
-    }
-    return size;
-}
+
 #pragma mark 初始化选中的索引
 - (void)addDXBubbleView
 {
@@ -113,94 +133,6 @@
         [self.view addSubview:self.sectionIndexView];
         [self.view bringSubviewToFront:self.sectionIndexView];
     }
-}
-#pragma mark DSectionIndexViewDataSource && delegate method
-- (NSInteger)numberOfItemViewForSectionIndexView:(DSectionIndexView *)sectionIndexView
-{
-    return _indexArray.count;
-}
-
-- (DSectionIndexItemView *)sectionIndexView:(DSectionIndexView *)sectionIndexView itemViewForSection:(NSInteger)section
-{
-    DSectionIndexItemView *itemView = [[DSectionIndexItemView alloc] init];
-//    itemView.frame = CGRectMake(0, 0, 20, 20);
-    if (section < _indexArray.count) {
-        itemView.titleLabel.text = [_indexArray objectAtIndex:section];
-    }else{
-        itemView.titleLabel.text = @"";
-    }
-    
-    itemView.titleLabel.font = [UIFont systemFontOfSize:kDXIsPad?15:12];
-    itemView.titleLabel.textColor = [UIColor blackColor];
-    if (self.indexViewColor) {
-        itemView.titleLabel.textColor = self.indexViewColor;
-    }
-    itemView.titleLabel.highlightedTextColor = [UIColor colorWithRed:21/255.0 green:166/255.0 blue:220/255.0 alpha:1];
-    if (self.highlightedIndexViewColor) {
-        itemView.titleLabel.highlightedTextColor = self.highlightedIndexViewColor;
-    }
-    itemView.titleLabel.shadowColor = [UIColor whiteColor];
-    itemView.titleLabel.shadowOffset = CGSizeMake(0, 1);
-    
-    return itemView;
-}
-
-- (UIView *)sectionIndexView:(DSectionIndexView *)sectionIndexView calloutViewForSection:(NSInteger)section
-{
-    if (section<_indexArray.count) {
-        _dxBubbleView.indexString = [_indexArray objectAtIndex:section];
-    }else{
-        _dxBubbleView.indexString = @"";
-    }
-    
-    _dxBubbleView.hidden = NO;
-    return _dxBubbleView;
-}
-
-- (NSString *)sectionIndexView:(DSectionIndexView *)sectionIndexView
-               titleForSection:(NSInteger)section
-{
-    if (section < _indexArray.count) {
-        return [_indexArray objectAtIndex:section];
-    }else{
-        return @"";
-    }
-}
-
-- (void)sectionIndexView:(DSectionIndexView *)sectionIndexView didSelectSection:(NSInteger)section
-{
-    [_tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:section] atScrollPosition:UITableViewScrollPositionTop animated:YES];
-}
-
-- (void)loadCountryData
-{
-       NSString *plistPathCH = [[self dx_countryCodeBundle] pathForResource:@"sortedNameCH" ofType:@"plist"];
-       _sortedNameDict = [[NSDictionary alloc] initWithContentsOfFile:plistPathCH];
-       _indexArray = [[NSArray alloc] initWithArray:[[_sortedNameDict allKeys] sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-           return [obj1 compare:obj2];
-       }]];
-}
-#pragma mark - system
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    self.view.backgroundColor = [UIColor whiteColor];
-    
-    [self initNavBar];
-    
-    [self loadCountryData];
-    [self creatSubviews];
-    
-    [self addDXBubbleView];
-    [self initIndexView];
-    
-    [self.sectionIndexView reloadItemViews];
-    
-    // 滚动到指定的section，并显示选定状态
-    [self setupSelectState];
-    
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [self refreshIndexView];
-    });
 }
 
 #pragma mark - 滚动到指定的section，并显示选定状态
@@ -304,6 +236,28 @@
         _tableView.tableHeaderView = headerView;
     }
 }
+#pragma mark - 调整searchBar外观
+- (void)setupSearchBarStyle
+{
+    if (self.adjustSearchBarStyleBlock == nil)
+    {
+        UISearchBar *searchBar = _searchController.searchBar;
+        searchBar.backgroundImage = [self dx_imageWithColor:[UIColor whiteColor]];
+        searchBar.barStyle = UISearchBarStyleDefault;
+        UITextField *searchField = [searchBar valueForKey:@"searchField"];
+        searchField.backgroundColor = [UIColor colorWithRed:242/255.0 green:242/255.0 blue:242/255.0 alpha:1];
+        //    for (UIView *view in searchBar.subviews.firstObject.subviews)
+        //    {
+        //        if ([view isKindOfClass:NSClassFromString(@"UISearchBarBackground")]) {
+        //            break;
+        //        }
+        //    }
+    }
+    else
+    {
+        self.adjustSearchBarStyleBlock(_searchController.searchBar);
+    }
+}
 
 - (NSString *)showCodeStringIndex:(NSIndexPath *)indexPath {
     NSString *showCodeSting;
@@ -338,6 +292,63 @@
 
     [self goBack];
 //    NSLog(@"选择国家: %@   代码: %@",countryName,code);
+}
+#pragma mark DSectionIndexViewDataSource && delegate method
+- (NSInteger)numberOfItemViewForSectionIndexView:(DSectionIndexView *)sectionIndexView
+{
+    return _indexArray.count;
+}
+
+- (DSectionIndexItemView *)sectionIndexView:(DSectionIndexView *)sectionIndexView itemViewForSection:(NSInteger)section
+{
+    DSectionIndexItemView *itemView = [[DSectionIndexItemView alloc] init];
+    //    itemView.frame = CGRectMake(0, 0, 20, 20);
+    if (section < _indexArray.count) {
+        itemView.titleLabel.text = [_indexArray objectAtIndex:section];
+    }else{
+        itemView.titleLabel.text = @"";
+    }
+    
+    itemView.titleLabel.font = [UIFont systemFontOfSize:kDXIsPad?15:12];
+    itemView.titleLabel.textColor = [UIColor blackColor];
+    if (self.indexViewColor) {
+        itemView.titleLabel.textColor = self.indexViewColor;
+    }
+    itemView.titleLabel.highlightedTextColor = [UIColor colorWithRed:21/255.0 green:166/255.0 blue:220/255.0 alpha:1];
+    if (self.highlightedIndexViewColor) {
+        itemView.titleLabel.highlightedTextColor = self.highlightedIndexViewColor;
+    }
+    itemView.titleLabel.shadowColor = [UIColor whiteColor];
+    itemView.titleLabel.shadowOffset = CGSizeMake(0, 1);
+    
+    return itemView;
+}
+
+- (UIView *)sectionIndexView:(DSectionIndexView *)sectionIndexView calloutViewForSection:(NSInteger)section
+{
+    if (section<_indexArray.count) {
+        _dxBubbleView.indexString = [_indexArray objectAtIndex:section];
+    }else{
+        _dxBubbleView.indexString = @"";
+    }
+    
+    _dxBubbleView.hidden = NO;
+    return _dxBubbleView;
+}
+
+- (NSString *)sectionIndexView:(DSectionIndexView *)sectionIndexView
+               titleForSection:(NSInteger)section
+{
+    if (section < _indexArray.count) {
+        return [_indexArray objectAtIndex:section];
+    }else{
+        return @"";
+    }
+}
+
+- (void)sectionIndexView:(DSectionIndexView *)sectionIndexView didSelectSection:(NSInteger)section
+{
+    [_tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:section] atScrollPosition:UITableViewScrollPositionTop animated:YES];
 }
 
 #pragma mark - UISearchResultsUpdating
@@ -451,30 +462,17 @@
 
 }
 
-
-#pragma mark - 调整searchBar外观
-- (void)setupSearchBarStyle
+#pragma mark 懒加载
+- (UIImageView *)selectImagView
 {
-    if (self.adjustSearchBarStyleBlock == nil)
-    {
-        UISearchBar *searchBar = _searchController.searchBar;
-        searchBar.backgroundImage = [self dx_imageWithColor:[UIColor whiteColor]];
-        searchBar.barStyle = UISearchBarStyleDefault;
-        UITextField *searchField = [searchBar valueForKey:@"searchField"];
-        searchField.backgroundColor = [UIColor colorWithRed:242/255.0 green:242/255.0 blue:242/255.0 alpha:1];
-    //    for (UIView *view in searchBar.subviews.firstObject.subviews)
-    //    {
-    //        if ([view isKindOfClass:NSClassFromString(@"UISearchBarBackground")]) {
-    //            break;
-    //        }
-    //    }
+    if (!_selectImagView) {
+        UIImage *image = [UIImage imageWithContentsOfFile:[[self dx_countryCodeBundle] pathForResource:@"icon_row_select@2x" ofType:@"png"]];
+        _selectImagView = [[UIImageView alloc] initWithImage:image];
     }
-    else
-    {
-        self.adjustSearchBarStyleBlock(_searchController.searchBar);
-    }
+    return _selectImagView;
 }
 
+#pragma mark 私有方法
 - (NSBundle *)dx_countryCodeBundle
 {
     NSBundle *bundle = [NSBundle bundleWithPath:[[NSBundle bundleForClass:[self class]] pathForResource:@"DXCountryCode" ofType:@"bundle"]];

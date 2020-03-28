@@ -29,6 +29,17 @@
         showCodeLB.text = @"86";
     });    
 }
+- (IBAction)pushToCountryCode_right:(id)sender {
+    DXCountryCodeController *countryCodeVC = [[DXCountryCodeController alloc] initWithCountryCode:showCodeLB.text];
+    countryCodeVC.showType = DXCountryCodeTpyeRight;
+    //    countryCodeVC.deleagete = self;
+    countryCodeVC.returnCountryCodeBlock = ^(NSString *countryName, NSString *code) {
+        self->showCodeLB.text = code;
+        NSLog(@"countryName:%@, code:%@",countryName,code);
+    };
+    [self.navigationController pushViewController:countryCodeVC animated:YES];
+}
+
 
 - (IBAction)pushTocountryCode:(UIButton *)sender {
     
@@ -51,6 +62,8 @@
     };
     [self.navigationController presentViewController:nav animated:YES completion:nil];
 }
+
+
 
 #pragma mark - XWCountryCodeControllerDelegate
 - (void)returnCountryName:(NSString *)countryName code:(NSString *)code {

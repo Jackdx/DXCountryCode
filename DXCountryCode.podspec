@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'DXCountryCode'
-  s.version          = '1.0.0'
+  s.version          = '1.1.0'
   s.summary          = 'DXCountryCode'
 
 # This description is used to generate tags and improve search results.

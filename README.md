@@ -14,6 +14,8 @@
 
 ![image](https://github.com/Jackdx/DXCountryCode/raw/master/photo3.png)
 
+![image](https://github.com/Jackdx/DXCountryCode/raw/master/photo4.png)
+
 ## Example
 
 To run the example project, clone the repo, and run `pod install` from the Example directory first.
